@@ -39,17 +39,17 @@ const Login = ({ setIsLoggedIn }) => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      alert("이메일과 비밀번호를 입력해주세요.");
+      alert("아이디와 비밀번호를 입력해주세요.");
       return;
     }
 
     if (!validateEmail(email)) {
-      alert("올바른 이메일 주소 형식이 아닙니다.");
+      alert("올바른 아이디 형식이 아닙니다.");
       return;
     }
 
     if (!validatePassword(password)) {
-      alert("영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.");
+      alert("비밀번호는 영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.");
       return;
     }
 
@@ -89,10 +89,10 @@ const Login = ({ setIsLoggedIn }) => {
   return (
     <div className="login-page-content">
       <h2 className="login-title">로그인</h2>
-      <p className="login-message">이메일과 비밀번호를 입력해주세요.</p>
+      <p className="login-message">아이디와 비밀번호를 입력해주세요.</p>
       {/* 이메일 입력란 */}
       <label className="login-label" htmlFor="username">
-        이메일 주소
+        아이디
       </label>
       <p>
         {/* 이메일 입력 안내 문구 */}
@@ -105,9 +105,7 @@ const Login = ({ setIsLoggedIn }) => {
         />
       </p>
       {email && !validateEmail(email) && (
-        <span className="error-message">
-          올바른 이메일 주소 형식이 아닙니다.
-        </span>
+        <span className="error-message">올바른 아이디 형식이 아닙니다.</span>
       )}
 
       {/* 비밀번호 입력란 */}
