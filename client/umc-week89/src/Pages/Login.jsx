@@ -18,12 +18,13 @@ const Login = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
 
   const validateEmail = (value) => {
-    const emailRegex = /.*/; // /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[com]{2,}$/;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[com]{2,}$/;
     return emailRegex.test(value);
   };
 
   const validatePassword = (value) => {
-    const passwordRegex = /.*/; // /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     return passwordRegex.test(value);
   };
 
@@ -63,26 +64,31 @@ const Login = ({ setIsLoggedIn }) => {
 
       setTimeout(() => {
         dispatch(loginSuccess(response.data.userInfo));
-        setIsLoggedIn(true); // 로그인 성공 시 isLoggedIn을 true로 설정
+        setIsLoggedIn(true);
         navigate("/", { state: { isLoggedIn: true } });
+        alert("로그인에 성공했습니다."); // Alert for successful login
       }, 1500);
     } catch (error) {
+      let errorMessage = "네트워크 오류가 발생했습니다.";
+
       if (error.response) {
         const { status } = error.response;
-        let errorMessage = "로그인에 실패했습니다.";
+
+        //alert(status);
 
         if (status === 400) {
-          errorMessage = "아이디와 비밀번호를 입력해주세요.";
+          errorMessage = "로그인에 실패했습니다."; //"아이디와 비밀번호를 입력해주세요.";
         } else if (status === 401) {
           errorMessage = "존재하지 않는 아이디입니다.";
         } else if (status === 402) {
           errorMessage = "비밀번호가 틀렸습니다.";
         }
-
-        dispatch(loginFailure(errorMessage));
       } else {
-        dispatch(loginFailure("네트워크 오류가 발생했습니다."));
+        errorMessage = error.message || "네트워크 오류가 발생했습니다.";
       }
+
+      alert(errorMessage);
+      dispatch(loginFailure(errorMessage));
     }
   };
 
