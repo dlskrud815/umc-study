@@ -20,14 +20,16 @@ export const getLoginUser = (data) => {
   };
 
   if (!id || !pw) {
-    console.log("로그인 실패1");
+    console.log("로그인 실패");
     throw new BaseError(status.LOGIN_PARAM_NOT_EXIST);
   } else if (userData.userid != id) {
-    console.log("로그인 실패2");
+    console.log("로그인 실패");
     throw new BaseError(status.LOGIN_ID_NOT_EXIST);
   } else if (userData.password != pw) {
-    console.log("로그인 실패3");
+    console.log("로그인 실패");
     throw new BaseError(status.LOGIN_PASSWORD_WRONG);
+  } else {
+    console.log("로그인 성공");
   }
 
   const accessToken = createAccessToken(userData);
