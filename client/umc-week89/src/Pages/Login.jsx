@@ -68,6 +68,13 @@ const Login = ({ setIsLoggedIn }) => {
         navigate("/", { state: { isLoggedIn: true } });
         alert("로그인에 성공했습니다."); // Alert for successful login
       }, 1500);
+
+      // 서버로부터 토큰과 ID를 받아옴
+      console.log(response.data);
+      const { AccessToken, userId } = response.data.result; // 수정된 부분
+      // 로컬 스토리지에 토큰과 ID 저장
+      localStorage.setItem("AccessToken", AccessToken);
+      localStorage.setItem("userId", userId); // 수정된 부분
     } catch (error) {
       let errorMessage = "네트워크 오류가 발생했습니다.";
 
