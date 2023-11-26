@@ -86,7 +86,7 @@ const Login = ({ setIsLoggedIn }) => {
       localStorage.setItem("userId", userId);
       localStorage.setItem("isLoggedIn", "true");
     } catch (error) {
-      let errorMessage = "네트워크 오류가 발생했습니다.";
+      let errorMessage = "로그인에 실패했습니다.";
 
       if (error.response) {
         const { status } = error.response;
