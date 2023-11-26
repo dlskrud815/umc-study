@@ -1,6 +1,6 @@
 // Login.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest, loginSuccess, loginFailure } from "../Redux/actions";
@@ -38,6 +38,14 @@ const Login = ({ setIsLoggedIn }) => {
     setPassword(value);
   };
 
+  useEffect(() => {
+    // 페이지 로드 시 localStorage에서 로그인 상태 확인
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
+
   const handleLogin = async () => {
     if (!email || !password) {
       alert("아이디와 비밀번호를 입력해주세요.");
@@ -72,9 +80,11 @@ const Login = ({ setIsLoggedIn }) => {
       // 서버로부터 토큰과 ID를 받아옴
       console.log(response.data);
       const { AccessToken, userId } = response.data.result; // 수정된 부분
+
       // 로컬 스토리지에 토큰과 ID 저장
       localStorage.setItem("AccessToken", AccessToken);
-      localStorage.setItem("userId", userId); // 수정된 부분
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("isLoggedIn", "true");
     } catch (error) {
       let errorMessage = "네트워크 오류가 발생했습니다.";
 
@@ -166,7 +176,8 @@ const Login = ({ setIsLoggedIn }) => {
 };
 
 Login.propTypes = {
-  setIsLoggedIn: PropTypes.func.isRequired, // prop-types 추가
+  setIsLoggedIn: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default Login;

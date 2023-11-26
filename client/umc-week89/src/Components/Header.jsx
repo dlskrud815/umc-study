@@ -7,6 +7,9 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
   const handleLogout = () => {
     if (typeof setIsLoggedIn === "function") {
       setIsLoggedIn(false);
+      // 로그아웃 시 로컬 스토리지 초기화
+      localStorage.clear();
+      setIsLoggedIn(false);
     }
   };
 

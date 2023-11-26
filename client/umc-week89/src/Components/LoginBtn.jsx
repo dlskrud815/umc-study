@@ -1,3 +1,5 @@
+// LoginBtn.jsx
+
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +26,7 @@ const LoginBtn = ({ isLoggedIn }) => {
 
 LoginBtn.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired, // 로그아웃 함수 prop-types에 추가
 };
 
 export default LoginBtn;

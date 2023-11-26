@@ -12,13 +12,15 @@ import Login from "./Pages/Login";
 import TVShowDetail from "./Pages/TVShowDetail";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true",
+  );
 
   return (
     <div className="root-wrap">
       {/* <BrowserRouter basename="/umc-week7-exercise/"> */}
       <BrowserRouter>
-        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />{" "}
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
